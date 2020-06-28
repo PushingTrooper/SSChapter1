@@ -15,25 +15,26 @@ namespace Chapter_1
 
         }
 
-        [ThreadStatic]
-        public static int _field;
-        
+        public static ThreadLocal<int> _field = new ThreadLocal<int>(() =>
+        {
+            return Thread.CurrentThread.ManagedThreadId;
+        });
+
         static void Main(string[] args)
         {
             new Thread(new ThreadStart(() =>
             {
-                for(int i=0; i<10; i++)
+                for (int i = 0; i < _field.Value; i++)
                 {
-                    _field++;
-                    Console.WriteLine("Thread A: {0}", _field);
+                    Console.WriteLine("Thread A: {0}", i);
                 }
             })).Start();
+
             new Thread(new ThreadStart(() =>
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < _field.Value; i++)
                 {
-                    _field++;
-                    Console.WriteLine("Thread B: {0}", _field);
+                    Console.WriteLine("Thread B: {0}", i);
                 }
             })).Start();
             Console.ReadKey();
