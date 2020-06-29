@@ -24,7 +24,7 @@ namespace Chapter_1
 
         static void Main(string[] args)
         {
-            waitForAnyTask();
+            usingBreakAndStop();
         }
 
         private static void multipleThreads()
@@ -231,6 +231,39 @@ namespace Chapter_1
                 temp.RemoveAt(i);
                 tasks = temp.ToArray();
             }
+        }
+
+        public static void testingForAndForEachPerformance()
+        {
+            Parallel.For(0, 10, i =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("For running....");
+            });
+
+            var numbers = Enumerable.Range(0, 10);
+
+            Parallel.ForEach(numbers, i =>
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("ForEach running....");
+            });
+        }
+
+        public static void usingBreakAndStop()
+        {
+            ParallelLoopResult result = Parallel.For(0, 1000, (int i, ParallelLoopState loopState) =>
+            {
+                if(i == 500)
+                {
+                    Console.WriteLine("Breaking loop");
+                    loopState.Break();
+                }
+                return;
+            });
+
+            Console.WriteLine(result.IsCompleted);
+            Console.WriteLine(result.LowestBreakIteration);
         }
     }
 }
