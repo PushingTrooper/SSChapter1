@@ -22,10 +22,10 @@ namespace Chapter_1
             return Thread.CurrentThread.ManagedThreadId;
         });
 
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             usingBreakAndStop();
-        }
+        }*/
 
         private static void multipleThreads()
         {
