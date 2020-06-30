@@ -10,11 +10,10 @@ namespace Chapter_1
 {
     class Collections
     {
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             StacksThatAreConcurrent();
-            Console.WriteLine("trying to push");
-        }
+        }*/
 
         private static void ABunchOfNumbersInParallel()
         {
