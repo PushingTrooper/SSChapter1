@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +25,9 @@ namespace Chapter_1
 
         /*static void Main(string[] args)
         {
-            usingBreakAndStop();
+            asyncAndAwait();
+            Console.WriteLine("done");
+            Console.WriteLine("adding another thing");
         }*/
 
         private static void multipleThreads()
@@ -264,6 +267,21 @@ namespace Chapter_1
 
             Console.WriteLine(result.IsCompleted);
             Console.WriteLine(result.LowestBreakIteration);
+        }
+
+        public static void asyncAndAwait()
+        {
+            string result = DownloadContent().Result;
+            Console.WriteLine(result);
+        }
+
+        public static async Task<string> DownloadContent()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string result = await client.GetStringAsync("http://www.microsoft.com");
+                return result;
+            }
         }
     }
 }

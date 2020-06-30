@@ -13,6 +13,7 @@ namespace Chapter_1
         static void Main(string[] args)
         {
             StacksThatAreConcurrent();
+            Console.WriteLine("trying to push");
         }
 
         private static void ABunchOfNumbersInParallel()
